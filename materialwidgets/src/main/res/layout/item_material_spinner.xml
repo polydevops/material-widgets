@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text_item_material_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_left_material_spinner_string_item"
+        android:paddingTop="@dimen/padding_top_material_spinner_string_item"
+        android:paddingBottom="@dimen/padding_bottom_material_spinner_string_item"/>
+
+</LinearLayout>
