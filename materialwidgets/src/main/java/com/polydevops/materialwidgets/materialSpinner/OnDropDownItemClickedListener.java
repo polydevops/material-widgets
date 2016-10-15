@@ -3,9 +3,8 @@ package com.polydevops.materialwidgets.materialSpinner;
 import android.view.View;
 
 /**
- * Created by connor on 10/12/16.
+ * Listener for detecting when a MaterialSpinnerDropDown item is clicked.
  */
-
 public interface OnDropDownItemClickedListener {
     void onDropDownItemClicked(View view, int position);
 }

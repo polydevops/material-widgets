@@ -5,11 +5,13 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/text_item_material_spinner"
+        android:id="@+id/text_item_material_widgets"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/padding_left_material_spinner_string_item"
         android:paddingTop="@dimen/padding_top_material_spinner_string_item"
-        android:paddingBottom="@dimen/padding_bottom_material_spinner_string_item"/>
+        android:paddingBottom="@dimen/padding_bottom_material_spinner_string_item"
+        android:textSize="@dimen/text_size_medium"
+        android:textColor="@color/secondary_text_grey"/>
 
 </LinearLayout>

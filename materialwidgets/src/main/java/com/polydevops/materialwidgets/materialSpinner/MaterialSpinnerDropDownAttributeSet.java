@@ -9,9 +9,8 @@ import android.util.AttributeSet;
 import com.polydevops.materialwidgets.R;
 
 /**
- * Created by connor on 10/12/16.
+ * Provides custom AttributeSet for MaterialSpinnerDropDown
  */
-
 public class MaterialSpinnerDropDownAttributeSet {
 
     private int verticalOffset;

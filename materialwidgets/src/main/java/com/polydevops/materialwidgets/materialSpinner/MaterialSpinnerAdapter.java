@@ -5,9 +5,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 /**
- * Created by connor on 9/22/16.
+ * Adapter for MaterialSpinner. It extends the BaseAdapter, which allows it to also be used by ListView's
  */
-
 public abstract class MaterialSpinnerAdapter<VH extends MaterialSpinnerAdapter.ViewHolder> extends BaseAdapter {
 
     public abstract void onBindViewHolder(VH holder, int position);

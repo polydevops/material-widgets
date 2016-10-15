@@ -7,4 +7,7 @@
         <attr name="dropDownElevationEnabled" format="boolean" />
         <attr name="dropDownItemDivider" format="reference" />
     </declare-styleable>
+    <declare-styleable name="MaterialListView">
+        <attr name="staticList" format="boolean" />
+    </declare-styleable>
 </resources>

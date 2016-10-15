@@ -10,9 +10,8 @@ import com.polydevops.materialwidgets.R;
 import java.util.List;
 
 /**
- * Created by connor on 10/11/16.
+ * Basic string adapter for MaterialSpinner. Takes in strings and nicely displays them.
  */
-
 public class MaterialSpinnerStringAdapter extends MaterialSpinnerAdapter<MaterialSpinnerStringAdapter.StringViewHolder> {
 
     private List<String> strings;
@@ -54,7 +53,7 @@ public class MaterialSpinnerStringAdapter extends MaterialSpinnerAdapter<Materia
         public StringViewHolder(View itemView) {
             super(itemView);
 
-            stringTextView = (TextView) itemView.findViewById(R.id.text_item_material_spinner);
+            stringTextView = (TextView) itemView.findViewById(R.id.text_item_material_widgets);
         }
     }
 }

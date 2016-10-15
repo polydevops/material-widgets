@@ -1,59 +1,57 @@
 package com.polydevops.materialwidgets.materialSpinner;
 
 import android.content.Context;
-import android.support.annotation.AttrRes;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.ListPopupWindow;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 
 import com.polydevops.materialwidgets.R;
 
 /**
- * Created by connor on 9/22/16.
+ * The 'drop down' for the Material Spinner. Provides a variety of customizations, including setting
+ * the vertical offset, enabling/disabling elevation (turning off elevation uses a simpler dialog layout),
+ * the drawable for the item divider, etc.
+ *
+ * Class also includes a Builder.
  */
-
-public class MaterialSpinnerDropDown extends ListPopupWindow {
+public class MaterialSpinnerDropDown extends PopupWindow {
 
     private MaterialSpinner spinner;
 
+    private ListView listView;
+
     private boolean isShowing;
+
+    private int verticalOffset = 0;
+
 
     public MaterialSpinnerDropDown(@NonNull Context context) {
         super(context);
+        initializeView(context);
     }
 
     public MaterialSpinnerDropDown(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-
-        initializeView();
+        initializeView(context);
     }
 
-    public MaterialSpinnerDropDown(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+    private void initializeView(final Context context) {
 
-        initializeView();
-    }
+        // this allows the drop down to be dismissed
+        // when the user clicks outside or hits the back button
+        setOutsideTouchable(true);
+        setFocusable(true);
 
-    public MaterialSpinnerDropDown(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-
-        initializeView();
-    }
-
-    public static MaterialSpinnerDropDown newInstance(@NonNull Context context) {
-        return new MaterialSpinnerDropDown(context);
-    }
-
-
-
-    private void initializeView() {
-        setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView = new ListView(context);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 spinner.setSpinnerText(spinner.getAdapter().getItem(position).toString()); // TODO: This should set a view rather than text
@@ -62,6 +60,8 @@ public class MaterialSpinnerDropDown extends ListPopupWindow {
                 }
             }
         });
+
+        setContentView(listView);
     }
 
     @Override
@@ -70,15 +70,22 @@ public class MaterialSpinnerDropDown extends ListPopupWindow {
     }
 
     @Override
-    public void show() {
-        super.show();
-        isShowing = true;
-    }
-
-    @Override
     public void dismiss() {
         super.dismiss();
         isShowing = false;
+    }
+
+    public void setVerticalOffset(final int offset) {
+        this.verticalOffset = offset;
+    }
+
+    public void show() {
+        super.showAsDropDown(spinner, 0, verticalOffset);
+        isShowing = true;
+    }
+
+    public ListView getListView() {
+        return listView;
     }
 
     private void setSpinner(MaterialSpinner spinner) {
@@ -98,13 +105,12 @@ public class MaterialSpinnerDropDown extends ListPopupWindow {
         }
 
         public Builder setAdapter(final ListAdapter adapter) {
-            instance.setAdapter(adapter);
+            instance.getListView().setAdapter(adapter);
             return this;
         }
 
         public Builder setSpinner(final MaterialSpinner spinner) {
             instance.setSpinner(spinner);
-            instance.setAnchorView(spinner);
             return this;
         }
 
@@ -113,8 +119,18 @@ public class MaterialSpinnerDropDown extends ListPopupWindow {
             return this;
         }
 
+        public Builder setItemDivider(final Drawable itemDivider) {
+            instance.getListView().setDivider(itemDivider);
+            return this;
+        }
+
         public Builder enableElevation(boolean enabled) {
-            if (!enabled) {
+            if (enabled) {
+                if (Build.VERSION.SDK_INT >= 21) {
+                    instance.setBackgroundDrawable(ContextCompat.getDrawable(instance.getSpinner().getContext(), R.drawable.material_spinner_drop_down_simple_background));
+                    instance.setElevation(16);
+                }
+            } else {
                 instance.setBackgroundDrawable(ContextCompat.getDrawable(instance.getSpinner().getContext(), R.drawable.material_spinner_drop_down_simple_background));
                 instance.setAnimationStyle(android.R.style.Animation_Dialog);
             }

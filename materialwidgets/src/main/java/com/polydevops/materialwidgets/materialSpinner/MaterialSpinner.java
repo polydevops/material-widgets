@@ -13,7 +13,14 @@ import android.widget.TextView;
 import com.polydevops.materialwidgets.R;
 
 /**
- * Created by connor on 9/21/16.
+ * Custom 'Spinner' implementation that is stylized more for Material Design and features and more
+ * 'user-friendly' and customizable API.
+ *
+ * Implementation of adapter for adding items to the spinner drop down is fairly similar to that provided
+ * by RecyclerView.Adapter and RecyclerView.ViewHolder.
+ *
+ * Customization options include the ability to set 'hint text', set whether or not elevation is enabled
+ * (turning elevation off introduces a simpler dialog), set a drawable for a list divider, etc.
  */
 public class MaterialSpinner extends FrameLayout {
 
@@ -23,8 +30,6 @@ public class MaterialSpinner extends FrameLayout {
 
     private Drawable spinnerIcon;
     private String hintText;
-
-    private boolean isOpen = false;
 
     private MaterialSpinnerAdapter adapter;
     private OnDropDownItemClickedListener listener;
@@ -41,10 +46,10 @@ public class MaterialSpinner extends FrameLayout {
         try {
             hintText = a.getString(R.styleable.MaterialSpinner_hint);
             spinnerIcon = a.getDrawable(R.styleable.MaterialSpinner_spinnerIcon);
+
             if (spinnerIcon == null) {
                 spinnerIcon = ContextCompat.getDrawable(context, R.drawable.ic_arrow_drop_down);
             }
-
 
         } finally {
             a.recycle();
@@ -104,10 +109,10 @@ public class MaterialSpinner extends FrameLayout {
                     .setAdapter(adapter)
                     .enableElevation(dropDownAttributeSet.isElevationEnabled())
                     .setVerticalOffset(dropDownAttributeSet.getVerticalOffset())
+                    .setItemDivider(dropDownAttributeSet.getItemDivider())
                     .create();
 
             spinnerDropDown.show();
-            spinnerDropDown.getListView().setDivider(dropDownAttributeSet.getItemDivider());
         }
     }
 
