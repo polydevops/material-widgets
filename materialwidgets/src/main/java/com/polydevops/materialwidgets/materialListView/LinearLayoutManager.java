@@ -3,12 +3,14 @@ package com.polydevops.materialwidgets.materialListView;
 import android.content.Context;
 import android.view.View;
 
+import com.polydevops.materialwidgets.materialAdapter.MaterialAdapter;
+
 /**
  * LinearLayoutManager implementation for use with MaterialListView
  *
  * Can layout items either horizontally or vertically
  */
-public class LinearLayoutManager extends MaterialListView.LayoutManager {
+public class LinearLayoutManager extends LayoutManager {
 
     public static final int HORIZONTAL = 0;
     public static final int VERTICAL = 1;
@@ -43,16 +45,13 @@ public class LinearLayoutManager extends MaterialListView.LayoutManager {
 
     @Override
     protected void fill(MaterialListView materialListView) {
-        final MaterialListView.Adapter adapter = materialListView.getAdapter();
-        final int adapterItemCount = adapter.getItemCount();
+        final MaterialAdapter adapter = materialListView.getAdapter();
+        final int adapterItemCount = adapter.getCount();
         for (int i = 0; i < adapterItemCount; i++) {
-            MaterialListView.ViewHolder viewHolder = adapter.createViewHolder(materialListView, adapter.getItemViewType(i));
-            adapter.bindViewHolder(viewHolder, i);
-
-            final View viewToAdd = viewHolder.view;
+            final View viewToAdd = adapter.getView(i, null, materialListView);
             materialListView.addViewClickListener(viewToAdd, i);
-
             addView(viewToAdd);
+
             addDividerView(materialListView.getDivider());
         }
     }

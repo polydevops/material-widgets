@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.polydevops.materialwidgets.R;
+import com.polydevops.materialwidgets.materialAdapter.MaterialAdapter;
 
 /**
  * Custom 'Spinner' implementation that is stylized more for Material Design and features and more
@@ -31,16 +32,67 @@ public class MaterialSpinner extends FrameLayout {
     private Drawable spinnerIcon;
     private String hintText;
 
-    private MaterialSpinnerAdapter adapter;
-    private OnDropDownItemClickedListener listener;
+    private MaterialAdapter adapter;
 
-    private MaterialSpinnerDropDownAttributeSet dropDownAttributeSet;
+    public MaterialSpinner(Context context) {
+        super(context);
+        initializeView(context, null);
+    }
 
     public MaterialSpinner(Context context, AttributeSet attrs) {
         super(context, attrs);
+        initializeView(context, attrs);
+    }
+
+    public void setAdapter(MaterialAdapter adapter) {
+        this.adapter = adapter;
+    }
+
+    public MaterialAdapter getAdapter() {
+        return adapter;
+    }
+
+    public void setOnDropdownItemClickedListener(final OnDropDownItemClickedListener listener) {
+        spinnerDropDown.setOnDropDownItemClickedListener(new OnDropDownItemClickedListener() {
+            @Override
+            public void onDropDownItemClicked(View view, int position) {
+                setSpinnerText(getAdapter().getItem(position).toString()); // TODO: This should set a view rather than text
+                if (listener != null) {
+                    listener.onDropDownItemClicked(view, position);
+                }
+                closeDropdown();
+            }
+        });
+    }
+
+    public void setSpinnerText(final String text) {
+        spinnerTextView.setText(text);
+    }
+
+    public void setSpinnerIcon(final int icon) {
+        spinnerIcon = ContextCompat.getDrawable(getContext(), icon);
+        spinnerIconImageView.setImageDrawable(spinnerIcon);
+    }
+
+    public void closeDropdown() {
+        if (spinnerDropDown != null) {
+            spinnerDropDown.dismiss();
+        }
+    }
+
+    public void openDropdown() {
+        if (adapter != null) {
+            spinnerDropDown
+                    .setAdapter(adapter)
+                    .show();
+        }
+    }
+
+    private void initializeView(Context context, AttributeSet attrs) {
         inflate(context, R.layout.material_spinner, this);
 
-        dropDownAttributeSet = new MaterialSpinnerDropDownAttributeSet(context, attrs);
+        final MaterialSpinnerDropDownAttributeSet dropDownAttributeSet = new MaterialSpinnerDropDownAttributeSet(context, attrs);
+        spinnerDropDown = new MaterialSpinnerDropDown(this, dropDownAttributeSet);
 
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.MaterialSpinner, 0, 0);
         try {
@@ -64,7 +116,7 @@ public class MaterialSpinner extends FrameLayout {
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (spinnerDropDown != null && spinnerDropDown.isShowing()) {
+                if (spinnerDropDown.isShowing()) {
                     closeDropdown();
                 } else {
                     openDropdown();
@@ -72,49 +124,4 @@ public class MaterialSpinner extends FrameLayout {
             }
         });
     }
-
-    public void setAdapter(MaterialSpinnerAdapter adapter) {
-        this.adapter = adapter;
-    }
-
-    public MaterialSpinnerAdapter getAdapter() {
-        return adapter;
-    }
-
-    public void setOnDropdownItemClickedListener(OnDropDownItemClickedListener listener) {
-        this.listener = listener;
-    }
-
-    public OnDropDownItemClickedListener getOnDropdownItemClickedListener() {
-        return listener;
-    }
-
-    public void setSpinnerText(final String text) {
-        spinnerTextView.setText(text);
-    }
-
-    public void setSpinnerIcon(final int icon) {
-        spinnerIcon = ContextCompat.getDrawable(getContext(), icon);
-        spinnerIconImageView.setImageDrawable(spinnerIcon);
-    }
-
-    protected void closeDropdown() {
-        spinnerDropDown.dismiss();
-    }
-
-    protected void openDropdown() {
-        if (adapter != null) {
-            spinnerDropDown = new MaterialSpinnerDropDown.Builder(getContext())
-                    .setSpinner(this)
-                    .setAdapter(adapter)
-                    .enableElevation(dropDownAttributeSet.isElevationEnabled())
-                    .setVerticalOffset(dropDownAttributeSet.getVerticalOffset())
-                    .setItemDivider(dropDownAttributeSet.getItemDivider())
-                    .create();
-
-            spinnerDropDown.show();
-        }
-    }
-
-
 }

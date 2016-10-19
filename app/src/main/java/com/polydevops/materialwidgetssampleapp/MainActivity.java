@@ -5,10 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.polydevops.materialwidgets.materialAdapter.MaterialAdapter;
+import com.polydevops.materialwidgets.materialAdapter.MaterialStringAdapter;
 import com.polydevops.materialwidgets.materialListView.LinearLayoutManager;
 import com.polydevops.materialwidgets.materialListView.MaterialListView;
 import com.polydevops.materialwidgets.materialSpinner.MaterialSpinner;
-import com.polydevops.materialwidgets.materialSpinner.MaterialSpinnerStringAdapter;
 import com.polydevops.materialwidgets.materialSpinner.OnDropDownItemClickedListener;
 
 import java.util.Arrays;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final MaterialSpinner materialSpinner = (MaterialSpinner) findViewById(R.id.material_spinner);
-        final MaterialSpinnerStringAdapter materialSpinnerAdapter = new MaterialSpinnerStringAdapter(spinnerItems);
+        final MaterialStringAdapter materialSpinnerAdapter = new MaterialStringAdapter(spinnerItems);
         materialSpinner.setAdapter(materialSpinnerAdapter);
         materialSpinner.setOnDropdownItemClickedListener(new OnDropDownItemClickedListener() {
             @Override
@@ -44,14 +45,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final MaterialListView materialListView = (MaterialListView) findViewById(R.id.material_list_view);
-        final MaterialListView.Adapter adapter = new MaterialListViewStringAdapter(listItems);
+        final MaterialAdapter adapter = new MaterialStringAdapter(listItems);
         materialListView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         materialListView.setAdapter(adapter);
         materialListView.setDivider(R.drawable.material_spinner_item_divider);
         materialListView.setOnItemClickListener(new MaterialListView.OnItemClickListener() {
             @Override
             public void onItemClicked(MaterialListView materialListView, int position, View v) {
-                final String string = ((MaterialListViewStringAdapter) materialListView.getAdapter()).getItem(position);
+                final String string = ((MaterialStringAdapter) materialListView.getAdapter()).getItem(position);
                 Toast.makeText(MainActivity.this, string, Toast.LENGTH_SHORT).show();
             }
         });

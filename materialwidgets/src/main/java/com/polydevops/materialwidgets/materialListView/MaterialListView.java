@@ -2,25 +2,20 @@ package com.polydevops.materialwidgets.materialListView;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.polydevops.materialwidgets.R;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.polydevops.materialwidgets.materialAdapter.MaterialAdapter;
 
 /**
  * Custom 'ListView' implementation that can either grow in size as items are added to it or
  * default to a scrollable list.
  *
- * Implementation of adapter for adding items to MaterialListView is fairly similar to that provided
+ * Implementation of adapter for adding items to MaterialListView is similar to that provided
  * by RecyclerView.Adapter and RecyclerView.ViewHolder.
  *
  * Just like RecyclerView, a LayoutManager is needed to instruct the view how to layout its children.
@@ -30,7 +25,7 @@ public class MaterialListView extends FrameLayout {
 
     public static final int NO_DIVIDER = -1;
 
-    private Adapter adapter;
+    private MaterialAdapter adapter;
     private LayoutManager layoutManager;
     private OnItemClickListener itemClickListener;
 
@@ -61,13 +56,13 @@ public class MaterialListView extends FrameLayout {
         onLayoutManagerAttached();
     }
 
-    public void setAdapter(final Adapter adapter) {
+    public void setAdapter(final MaterialAdapter adapter) {
         this.adapter = adapter;
         setAdapterOnDataAttachedListener();
         onAdapterAttached();
     }
 
-    public Adapter getAdapter() { return adapter; }
+    public MaterialAdapter getAdapter() { return adapter; }
 
     public void setDivider(final int drawableRes) {
         this.dividerLayoutRes = drawableRes;
@@ -94,35 +89,27 @@ public class MaterialListView extends FrameLayout {
         });
     }
 
-    public ViewHolder findViewHolderForAdapterPosition(int position) {
-        return (adapter != null) ? (ViewHolder) adapter.getViewHolderCache().get(position) : null;
-    }
-
     protected LinearLayout getContentView() {
         return contentView;
     }
 
     private void onLayoutManagerAttached() {
         removeAllViews();
-        clearAdapterCache();
         refreshLayout();
     }
 
     private void onAdapterAttached() {
         removeAllViews();
-        clearAdapterCache();
         refreshLayout();
     }
 
     private void onItemClickListenerAttached() {
         removeAllViews();
-        clearAdapterCache();
         refreshLayout();
     }
 
     private void onDividerAttached() {
         removeAllViews();
-        clearAdapterCache();
         refreshLayout();
     }
 
@@ -134,12 +121,6 @@ public class MaterialListView extends FrameLayout {
                 refreshLayout();
             }
         });
-    }
-
-    private void clearAdapterCache() {
-        if (adapter != null) {
-            adapter.clearViewHolderCache();
-        }
     }
 
     private void refreshLayout() {
@@ -161,113 +142,10 @@ public class MaterialListView extends FrameLayout {
     }
 
     /**
-     * Adapter for MaterialListView.
-     *
-     * To use, extend this class just like you would a RecyclerView.Adapter.
-     * Similar methods (onCreateViewHolder, onBindViewHolder, etc.) allow users to define
-     * the item views.
-     *
-     * @param <VH> - the ViewHolder used by the adapter
-     */
-    public static abstract class Adapter<VH extends ViewHolder> {
-        public OnDataSetChangedListener onDataChangedListener;
-        private Map<Integer, ViewHolder> viewHolderCache;
-
-        public Adapter() { viewHolderCache = new HashMap<>(); }
-
-        public abstract int getItemCount();
-
-        public abstract VH onCreateViewHolder(ViewGroup parent, int viewType);
-
-        public abstract void onBindViewHolder(VH holder, int position);
-
-        final void bindViewHolder(VH holder, int position) {
-            onBindViewHolder(holder, position);
-            holder.position = position;
-            viewHolderCache.put(position, holder);
-        }
-
-        final VH createViewHolder(ViewGroup parent, int viewType) {
-            return onCreateViewHolder(parent, viewType);
-        }
-
-        public int getItemViewType(int position) { return 0; }
-
-        public void setOnDataChangedListener(OnDataSetChangedListener listener) {
-            this.onDataChangedListener = listener;
-        }
-
-        public void notifyDataSetChanged() {
-            if (onDataChangedListener != null) onDataChangedListener.onDataSetChanged();
-        }
-
-        Map<Integer, ViewHolder> getViewHolderCache() { return viewHolderCache; }
-
-        void clearViewHolderCache() { viewHolderCache.clear(); }
-    }
-
-    /**
-     * ViewHolder used by Adapter
-     *
-     * To use, extend this class just like you would RecyclerView.Holder.
-     */
-    public static abstract class ViewHolder {
-
-        View view;
-        int position;
-
-        public ViewHolder(final View view) { this.view = view; }
-
-        public int getPosition() { return position; }
-    }
-
-    /**
-     * Abstract LayoutManager allows for different layout implementations.
-     *
-     * Current implementations are LinearLayoutManager and GridLayoutManager.
-     */
-    public static abstract class LayoutManager {
-
-        private Context context;
-        private MaterialListView materialListView;
-
-        public LayoutManager(final Context context) { this.context = context; }
-
-        protected abstract void fill(MaterialListView materialListView);
-
-        public void onLayoutChildren(MaterialListView materialListView) {
-            if (this.materialListView != materialListView) {
-                this.materialListView = materialListView;
-            }
-        }
-
-        public void addView(View child) { materialListView.getContentView().addView(child);}
-
-        void addDividerView(final int dividerLayoutRes) {
-            if (materialListView.hasDivider()) {
-                final ImageView imageView = new ImageView(context);
-                imageView.setImageDrawable(ContextCompat.getDrawable(context, dividerLayoutRes));
-                materialListView.getContentView().addView(imageView);
-            }
-        }
-
-        Context getContext() { return context; }
-
-        MaterialListView getMaterialListView() { return materialListView; }
-    }
-
-    /**
      * Listener for detecting when an list item is clicked.
      */
     public interface OnItemClickListener {
         void onItemClicked(final MaterialListView materialListView, final int position, final View v);
-    }
-
-    /**
-     * Listener for detecting when the data in a list is changed.
-     */
-    public interface OnDataSetChangedListener {
-        void onDataSetChanged();
     }
 
 }

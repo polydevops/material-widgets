@@ -1,4 +1,4 @@
-package com.polydevops.materialwidgets.materialSpinner;
+package com.polydevops.materialwidgets.materialAdapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +10,13 @@ import com.polydevops.materialwidgets.R;
 import java.util.List;
 
 /**
- * Basic string adapter for MaterialSpinner. Takes in strings and nicely displays them.
+ * Basic string adapter for MaterialAdapter. Takes in strings and nicely displays them.
  */
-public class MaterialSpinnerStringAdapter extends MaterialSpinnerAdapter<MaterialSpinnerStringAdapter.StringViewHolder> {
+public class MaterialStringAdapter extends MaterialAdapter<MaterialStringAdapter.StringViewHolder> {
 
     private List<String> strings;
 
-    public MaterialSpinnerStringAdapter(final List<String> strings) {
+    public MaterialStringAdapter(final List<String> strings) {
         this.strings = strings;
     }
 
@@ -27,7 +27,7 @@ public class MaterialSpinnerStringAdapter extends MaterialSpinnerAdapter<Materia
 
     @Override
     public StringViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_material_spinner, null);
+        final View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_material_simple_text, null);
         return new StringViewHolder(itemView);
     }
 
@@ -41,12 +41,7 @@ public class MaterialSpinnerStringAdapter extends MaterialSpinnerAdapter<Materia
         return strings.get(position);
     }
 
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-    public class StringViewHolder extends MaterialSpinnerAdapter.ViewHolder {
+    public class StringViewHolder extends MaterialAdapter.ViewHolder {
 
         TextView stringTextView;
 

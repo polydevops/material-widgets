@@ -6,6 +6,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.polydevops.materialwidgets.materialAdapter.MaterialAdapter;
+
 
 /**
  * GridLayoutManager implementation for use with MaterialListView
@@ -31,23 +33,20 @@ public class GridLayoutManager extends LinearLayoutManager {
         initGridLayout();
         addViewToGridLayout(child);
 
-        if (layoutCount == getMaterialListView().getAdapter().getItemCount()) {
+        if (layoutCount == getMaterialListView().getAdapter().getCount()) {
             super.addView(child);
         }
     }
 
     @Override
     protected void fill(MaterialListView materialListView) {
-        final MaterialListView.Adapter adapter = materialListView.getAdapter();
-        final int adapterItemCount = adapter.getItemCount();
+        final MaterialAdapter adapter = materialListView.getAdapter();
+        final int adapterItemCount = adapter.getCount();
         for (int i = 0; i < adapterItemCount; i++) {
-            MaterialListView.ViewHolder viewHolder = adapter.createViewHolder(materialListView, adapter.getItemViewType(i));
-            adapter.bindViewHolder(viewHolder, i);
-
-            final View viewToAdd = viewHolder.view;
+            final View viewToAdd = adapter.getView(i, null, materialListView);
             materialListView.addViewClickListener(viewToAdd, i);
-
             addView(viewToAdd);
+
             addDividerView(materialListView.getDivider());
         }
 
