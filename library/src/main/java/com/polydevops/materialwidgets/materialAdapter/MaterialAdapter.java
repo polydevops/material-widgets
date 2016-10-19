@@ -6,6 +6,8 @@ import android.widget.BaseAdapter;
 
 import com.polydevops.materialwidgets.materialListView.OnDataSetChangedListener;
 
+import java.util.List;
+
 /**
  * Adapter for use with material-widgets, particular MaterialSpinner and MaterialListView.
  *
@@ -15,11 +17,15 @@ import com.polydevops.materialwidgets.materialListView.OnDataSetChangedListener;
  *
  * @param <VH> - the ViewHolder used by the adapter
  */
-public abstract class MaterialAdapter<VH extends MaterialAdapter.ViewHolder> extends BaseAdapter{
+public abstract class MaterialAdapter<T, VH extends MaterialAdapter.ViewHolder> extends BaseAdapter {
 
-    public OnDataSetChangedListener onDataChangedListener;
+    private List<T> data;
 
-    public abstract int getCount();
+    private OnDataSetChangedListener onDataChangedListener;
+
+    public MaterialAdapter(List<T> data) {
+        this.data = data;
+    }
 
     public abstract VH onCreateViewHolder(ViewGroup parent, int viewType);
 
@@ -42,28 +48,46 @@ public abstract class MaterialAdapter<VH extends MaterialAdapter.ViewHolder> ext
         return holder.itemView;
     }
 
-    /**
-     * Override if you want to take advantage of this convenience method
-     *
-     * @param position - index
-     * @return - the object corresponding to the index
-     */
     @Override
-    public Object getItem(int position) {
-        return null;
+    public T getItem(int position) {
+        return data.get(position);
     }
 
     /**
      * Override if you want to take advantage of this convenience method
      *
      * @param position - index
-     * @return - the id of the object corresponding to the index
+     * @return - the id of the object corresponding to the index. Default is 0
      */
     @Override
     public long getItemId(int position) {
         return 0;
     }
 
+    /**
+     * Returns the size of the data backing the adapter
+     *
+     * @return - size of the data backing the adapter
+     */
+    public int getCount() {
+        return data.size();
+    }
+
+    /**
+     * Returns the data backing the adapter
+     *
+     * @return - the data backing the adapter
+     */
+    public List<T> getData() {
+        return data;
+    }
+
+    /**
+     * Override if you need to inflate different layouts for different data
+     *
+     * @param position - index
+     * @return - viewType for a specific index
+     */
     public int getItemViewType(int position) { return 0; }
 
     public void setOnDataChangedListener(OnDataSetChangedListener onDataChangedListener) {

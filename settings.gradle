@@ -1,1 +1,1 @@
-include ':app', ':materialwidgets'
+include ':app', ':library'

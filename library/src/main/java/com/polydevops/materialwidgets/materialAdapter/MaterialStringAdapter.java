@@ -12,17 +12,15 @@ import java.util.List;
 /**
  * Basic string adapter for MaterialAdapter. Takes in strings and nicely displays them.
  */
-public class MaterialStringAdapter extends MaterialAdapter<MaterialStringAdapter.StringViewHolder> {
-
-    private List<String> strings;
+public class MaterialStringAdapter extends MaterialAdapter<String, MaterialStringAdapter.StringViewHolder> {
 
     public MaterialStringAdapter(final List<String> strings) {
-        this.strings = strings;
+        super(strings);
     }
 
     @Override
     public void onBindViewHolder(StringViewHolder holder, int position) {
-        holder.stringTextView.setText(strings.get(position));
+        holder.stringTextView.setText(getItem(position));
     }
 
     @Override
@@ -31,17 +29,7 @@ public class MaterialStringAdapter extends MaterialAdapter<MaterialStringAdapter
         return new StringViewHolder(itemView);
     }
 
-    @Override
-    public int getCount() {
-        return strings.size();
-    }
-
-    @Override
-    public String getItem(int position) {
-        return strings.get(position);
-    }
-
-    public class StringViewHolder extends MaterialAdapter.ViewHolder {
+    class StringViewHolder extends MaterialAdapter.ViewHolder {
 
         TextView stringTextView;
 
