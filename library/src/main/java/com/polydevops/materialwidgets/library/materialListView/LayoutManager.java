@@ -1,7 +1,6 @@
-package com.polydevops.materialwidgets.materialListView;
+package com.polydevops.materialwidgets.library.materialListView;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -27,10 +26,10 @@ public abstract class LayoutManager {
 
     public void addView(View child) { materialListView.getContentView().addView(child);}
 
-    void addDividerView(final int dividerLayoutRes) {
+    void addDividerView() {
         if (materialListView.hasDivider()) {
             final ImageView imageView = new ImageView(context);
-            imageView.setImageDrawable(ContextCompat.getDrawable(context, dividerLayoutRes));
+            imageView.setImageDrawable(materialListView.getDivider());
             materialListView.getContentView().addView(imageView);
         }
     }

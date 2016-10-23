@@ -1,7 +1,9 @@
-package com.polydevops.materialwidgets.materialListView;
+package com.polydevops.materialwidgets.library.materialListView;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -9,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.polydevops.materialwidgets.R;
-import com.polydevops.materialwidgets.materialAdapter.MaterialAdapter;
+import com.polydevops.materialwidgets.library.materialAdapter.MaterialAdapter;
 
 /**
  * Custom 'ListView' implementation that can either grow in size as items are added to it or
@@ -23,18 +25,15 @@ import com.polydevops.materialwidgets.materialAdapter.MaterialAdapter;
  */
 public class MaterialListView extends FrameLayout {
 
-    public static final int NO_DIVIDER = -1;
-
     private MaterialAdapter adapter;
     private LayoutManager layoutManager;
     private OnItemClickListener itemClickListener;
-
-    private int dividerLayoutRes = NO_DIVIDER;
 
     private LinearLayout contentView;
 
     // attributes
     private boolean isStaticList;
+    private Drawable itemDivider;
 
     public MaterialListView(Context context) {
         super(context, null);
@@ -45,6 +44,7 @@ public class MaterialListView extends FrameLayout {
 
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.MaterialListView, 0, 0);
         try {
+            itemDivider = a.getDrawable(R.styleable.MaterialListView_itemDivider);
             isStaticList = a.getBoolean(R.styleable.MaterialListView_staticList, false);
         } finally {
             a.recycle();
@@ -64,21 +64,29 @@ public class MaterialListView extends FrameLayout {
 
     public MaterialAdapter getAdapter() { return adapter; }
 
-    public void setDivider(final int drawableRes) {
-        this.dividerLayoutRes = drawableRes;
+    public void setDivider(final int itemDividerRes) {
+        setDivider(ContextCompat.getDrawable(getContext(), itemDividerRes));
+    }
+
+    public void setDivider(final Drawable itemDivider) {
+        this.itemDivider = itemDivider;
         onDividerAttached();
     }
 
-    public int getDivider() { return dividerLayoutRes; }
+    public Drawable getDivider() { return itemDivider; }
 
-    public boolean hasDivider() { return dividerLayoutRes != NO_ID; }
+    public boolean hasDivider() { return itemDivider != null; }
 
     public void setOnItemClickListener(final OnItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
         onItemClickListenerAttached();
     }
 
-    public void addViewClickListener(final View view, final int position) {
+    public LinearLayout getContentView() {
+        return contentView;
+    }
+
+    void addViewClickListener(final View view, final int position) {
         view.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,10 +95,6 @@ public class MaterialListView extends FrameLayout {
                 }
             }
         });
-    }
-
-    protected LinearLayout getContentView() {
-        return contentView;
     }
 
     private void onLayoutManagerAttached() {
@@ -145,7 +149,7 @@ public class MaterialListView extends FrameLayout {
      * Listener for detecting when an list item is clicked.
      */
     public interface OnItemClickListener {
-        void onItemClicked(final MaterialListView materialListView, final int position, final View v);
+        void onItemClicked(final MaterialListView materialListView, final int position, final View view);
     }
 
 }

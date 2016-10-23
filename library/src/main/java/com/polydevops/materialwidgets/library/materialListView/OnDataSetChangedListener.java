@@ -1,4 +1,4 @@
-package com.polydevops.materialwidgets.materialListView;
+package com.polydevops.materialwidgets.library.materialListView;
 
 /**
  * Listener for detecting when the data in a list is changed.

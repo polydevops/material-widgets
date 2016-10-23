@@ -1,4 +1,4 @@
-package com.polydevops.materialwidgets.materialSpinner;
+package com.polydevops.materialwidgets.library.materialSpinner;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -14,10 +14,13 @@ import com.polydevops.materialwidgets.R;
 public class MaterialSpinnerDropDownAttributeSet {
 
     private int verticalOffset;
+    private int horiziontalOffset;
 
     private boolean elevationEnabled;
 
     private Drawable itemDivider;
+
+    private boolean dismissOnItemClick;
 
     public MaterialSpinnerDropDownAttributeSet(Context context, AttributeSet attrs) {
 
@@ -25,8 +28,10 @@ public class MaterialSpinnerDropDownAttributeSet {
 
         try {
             verticalOffset = a.getDimensionPixelSize(R.styleable.MaterialSpinner_dropDownVerticalOffset, 0);
+            horiziontalOffset = a.getDimensionPixelSize(R.styleable.MaterialSpinner_dropDownHorizontalOffset, 0);
             elevationEnabled = a.getBoolean(R.styleable.MaterialSpinner_dropDownElevationEnabled, true);
             itemDivider = ContextCompat.getDrawable(context, a.getResourceId(R.styleable.MaterialSpinner_dropDownItemDivider, 0));
+            dismissOnItemClick = a.getBoolean(R.styleable.MaterialSpinner_dropDownDismissOnItemClick, true);
         } finally {
             a.recycle();
         }
@@ -38,6 +43,14 @@ public class MaterialSpinnerDropDownAttributeSet {
 
     public void setVerticalOffset(int verticalOffset) {
         this.verticalOffset = verticalOffset;
+    }
+
+    public int getHoriziontalOffset() {
+        return horiziontalOffset;
+    }
+
+    public void setHoriziontalOffset(int horiziontalOffset) {
+        this.horiziontalOffset = horiziontalOffset;
     }
 
     public boolean isElevationEnabled() {
@@ -54,5 +67,13 @@ public class MaterialSpinnerDropDownAttributeSet {
 
     public void setItemDivider(Drawable itemDivider) {
         this.itemDivider = itemDivider;
+    }
+
+    public boolean isDismissOnItemClickEnabled() {
+        return dismissOnItemClick;
+    }
+
+    public void setIsDismissOnItemClickEnabled(boolean dismissOnItemClick) {
+        this.dismissOnItemClick = dismissOnItemClick;
     }
 }

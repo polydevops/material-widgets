@@ -10,24 +10,37 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="com.polydevops.materialwidgetssampleapp.MainActivity">
+    tools:context="com.polydevops.materialwidgets.app.MainActivity">
 
-    <com.polydevops.materialwidgets.materialSpinner.MaterialSpinner
+    <com.polydevops.materialwidgets.library.materialSpinner.MaterialSpinner
         android:id="@+id/material_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:hint="Select an option"
+        app:spinnerHint="Select an option"
         app:dropDownItemDivider="@drawable/material_spinner_item_divider"
-        app:dropDownElevationEnabled="false"
-        app:dropDownVerticalOffset="-12dp"/>
+        app:dropDownElevationEnabled="true"
+        app:dropDownDismissOnItemClick="false"/>
 
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Select something"
-        android:focusable="false"/>
+        android:orientation="horizontal"
+        android:gravity="center">
 
-    <com.polydevops.materialwidgets.materialListView.MaterialListView
+        <Button
+            android:id="@+id/btn_star_wars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Star Wars" />
+
+        <Button
+            android:id="@+id/btn_star_trek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Star Trek"/>
+    </LinearLayout>
+
+    <com.polydevops.materialwidgets.library.materialListView.MaterialListView
         android:id="@+id/material_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

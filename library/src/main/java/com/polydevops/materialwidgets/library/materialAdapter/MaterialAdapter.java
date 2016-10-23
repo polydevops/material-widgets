@@ -1,10 +1,10 @@
-package com.polydevops.materialwidgets.materialAdapter;
+package com.polydevops.materialwidgets.library.materialAdapter;
 
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.polydevops.materialwidgets.materialListView.OnDataSetChangedListener;
+import com.polydevops.materialwidgets.library.materialListView.OnDataSetChangedListener;
 
 import java.util.List;
 
@@ -80,6 +80,16 @@ public abstract class MaterialAdapter<T, VH extends MaterialAdapter.ViewHolder> 
      */
     public List<T> getData() {
         return data;
+    }
+
+    /**
+     * Setter for the data backing the adapter. Will notify any OnDataSetChangedListeners
+     *
+     * @param data - data that will be backing the adapter.
+     */
+    public void setData(List<T> data) {
+        this.data = data;
+        notifyDataSetChanged();
     }
 
     /**

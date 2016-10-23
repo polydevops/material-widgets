@@ -1,4 +1,4 @@
-package com.polydevops.materialwidgets.materialListView;
+package com.polydevops.materialwidgets.library.materialListView;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayout;
@@ -6,7 +6,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.polydevops.materialwidgets.materialAdapter.MaterialAdapter;
+import com.polydevops.materialwidgets.library.materialAdapter.MaterialAdapter;
 
 
 /**
@@ -47,7 +47,7 @@ public class GridLayoutManager extends LinearLayoutManager {
             materialListView.addViewClickListener(viewToAdd, i);
             addView(viewToAdd);
 
-            addDividerView(materialListView.getDivider());
+            addDividerView();
         }
 
         layoutCount = EMPTY_LAYOUT;

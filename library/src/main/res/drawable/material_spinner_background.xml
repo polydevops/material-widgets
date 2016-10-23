@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:drawable="@drawable/material_spinner_background_line"
-        android:gravity="bottom" />
+        android:top="-2dp"
+        android:left="-2dp"
+        android:right="-2dp"
+        android:gravity="bottom"
+        android:drawable="@drawable/material_spinner_background_line">
+    </item>
 
 </layer-list>

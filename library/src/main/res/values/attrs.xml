@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="MaterialSpinner">
-        <attr name="hint" format="string" />
+        <attr name="spinnerHint" format="string" />
         <attr name="spinnerIcon" format="integer" />
+        <attr name="spinnerIconLeftMargin" format="dimension" />
+        <attr name="spinnerIconTopMargin" format="dimension" />
+        <attr name="spinnerIconRightMargin" format="dimension" />
+        <attr name="spinnerIconBottomMargin" format="dimension" />
+        <attr name="spinnerTextLeftMargin" format="dimension" />
+        <attr name="spinnerTextTopMargin" format="dimension" />
+        <attr name="spinnerTextRightMargin" format="dimension" />
+        <attr name="spinnerTextBottomMargin" format="dimension" />
         <attr name="dropDownVerticalOffset" format="dimension" />
+        <attr name="dropDownHorizontalOffset" format="dimension" />
         <attr name="dropDownElevationEnabled" format="boolean" />
         <attr name="dropDownItemDivider" format="reference" />
+        <attr name="dropDownDismissOnItemClick" format="boolean" />
     </declare-styleable>
     <declare-styleable name="MaterialListView">
         <attr name="staticList" format="boolean" />
+        <attr name="itemDivider" format="integer" />
     </declare-styleable>
 </resources>

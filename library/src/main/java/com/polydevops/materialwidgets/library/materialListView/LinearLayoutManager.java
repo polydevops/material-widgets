@@ -1,9 +1,9 @@
-package com.polydevops.materialwidgets.materialListView;
+package com.polydevops.materialwidgets.library.materialListView;
 
 import android.content.Context;
 import android.view.View;
 
-import com.polydevops.materialwidgets.materialAdapter.MaterialAdapter;
+import com.polydevops.materialwidgets.library.materialAdapter.MaterialAdapter;
 
 /**
  * LinearLayoutManager implementation for use with MaterialListView
@@ -52,7 +52,7 @@ public class LinearLayoutManager extends LayoutManager {
             materialListView.addViewClickListener(viewToAdd, i);
             addView(viewToAdd);
 
-            addDividerView(materialListView.getDivider());
+            addDividerView();
         }
     }
 }

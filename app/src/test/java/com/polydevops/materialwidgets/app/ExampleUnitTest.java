@@ -1,4 +1,4 @@
-package com.polydevops.materialwidgetssampleapp;
+package com.polydevops.materialwidgets.app;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.polydevops.materialwidgets.materialAdapter;
+package com.polydevops.materialwidgets.library.materialAdapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +29,7 @@ public class MaterialStringAdapter extends MaterialAdapter<String, MaterialStrin
         return new StringViewHolder(itemView);
     }
 
-    class StringViewHolder extends MaterialAdapter.ViewHolder {
+    public class StringViewHolder extends MaterialAdapter.ViewHolder {
 
         TextView stringTextView;
 
