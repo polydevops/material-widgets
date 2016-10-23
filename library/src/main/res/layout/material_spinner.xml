@@ -1,45 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_material_spinner"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/margin_left_material_spinner"
+    android:layout_marginRight="@dimen/margin_right_material_spinner"
+    android:minHeight="@dimen/min_height_material_spinner"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/layout_material_spinner"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginLeft="@dimen/margin_left_material_spinner"
-        android:layout_marginRight="@dimen/margin_right_material_spinner"
-        android:minHeight="@dimen/min_height_material_spinner">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="4dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/text_material_spinner"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingBottom="4dp">
-
-            <TextView
-                android:id="@+id/text_material_spinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".9"
-                android:ellipsize="end"
-                android:lines="1"
-                android:paddingLeft="2dp"
-                android:textSize="@dimen/text_size_medium" />
-
-            <ImageView
-                android:id="@+id/icon_material_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight=".1" />
-
-        </LinearLayout>
+            android:layout_weight=".9"
+            android:ellipsize="end"
+            android:lines="1"
+            android:paddingLeft="2dp"
+            android:textSize="@dimen/text_size_medium" />
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:src="@color/secondary_text_grey" />
+            android:id="@+id/icon_material_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".1" />
 
     </LinearLayout>
 
-</merge>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:src="@color/secondary_text_grey" />
+
+</LinearLayout>
