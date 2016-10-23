@@ -60,6 +60,10 @@ public class MaterialSpinner extends FrameLayout implements View.OnClickListener
         spinnerTextView.setText(text);
     }
 
+    public String getSpinnerText() {
+        return spinnerTextView.getText().toString();
+    }
+
     public void setSpinnerIcon(final int icon) {
         setSpinnerIcon(ContextCompat.getDrawable(getContext(), icon));
     }
