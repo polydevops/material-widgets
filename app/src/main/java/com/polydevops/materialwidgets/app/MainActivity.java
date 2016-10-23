@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         final MaterialAdapter adapter = new MaterialStringAdapter(starWarsItems);
         materialListView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         materialListView.setAdapter(adapter);
-        materialListView.setDivider(R.drawable.material_spinner_item_divider);
+        materialListView.setDivider(R.drawable.material_item_divider);
         materialListView.setOnItemClickListener(new MaterialListView.OnItemClickListener() {
             @Override
             public void onItemClicked(MaterialListView materialListView, int position, View v) {
